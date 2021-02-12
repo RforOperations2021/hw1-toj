@@ -29,10 +29,10 @@ ui <- fluidPage(
         # Inputs: Select variables to plot ------------------------------
         sidebarPanel(
             
-            # #Selects Zip Code in Pittsburgh (to be used to filter the data)
-            # selectInput(inputId = "zip_code",
-            #             label = "Pittsburgh Zip Code",
-            #             choices = )
+            #Selects Zip Code in Pittsburgh (to be used to filter the data)
+            selectInput(inputId = "zip_code",
+                        label = "Pittsburgh Zip Code",
+                        choices = zipcodes$Zips)
         ),
         
         #Outputs
