@@ -11,7 +11,7 @@
 library(shiny)
 library(DT)
 library(tidyverse)
-load("pittppp.csv")
+load("pittppp2.csv")
 
 ui <- fluidPage(
     
@@ -27,7 +27,7 @@ ui <- fluidPage(
             #Selects Zip Code in Pittsburgh (to be used to filter the data)
             selectInput(inputId = "zip_code",
                         label = "Pittsburgh Zip Code",
-                        choices = "" )
+                        choices = "Zip" )
         ),
         
         #Outputs
@@ -40,10 +40,10 @@ ui <- fluidPage(
 # Define server logic required to draw a histogram
 server <- function(input, output) {
     
-    #Display data table of PPP loans for selected
-    output$zipTable <- renderTable({
-        
-    })
+    # #Display data table of PPP loans for selected
+    # output$zipTable <- renderTable({
+    #     
+    # })
 }
 
 # Run the application 
