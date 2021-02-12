@@ -13,6 +13,7 @@ library(DT)
 library(tidyverse)
 library(shinythemes)
 ppp <- read.csv("pittppp.csv")
+zipcodes <- read.csv("allegzips.csv")
 
 ui <- fluidPage(
     
