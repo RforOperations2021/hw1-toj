@@ -12,12 +12,12 @@ library(shiny)
 library(DT)
 library(tidyverse)
 library(shinythemes)
-load("pittppp2.csv")
+ppp <- read.csv("pittppp.csv")
 
 ui <- fluidPage(
     
-    #theme
-    theme = shinytheme("superhero"),
+    #Chose theme
+    theme = shinytheme("united"),
     
     # Application title
     titlePanel("Pittsburgh PPP Loan Data"),
@@ -36,7 +36,7 @@ ui <- fluidPage(
         
         #Outputs
         mainPanel(
-            tableOutput("zipTable")
+            dataTableOutput("zipTable")
         )
     )
 )
@@ -44,10 +44,12 @@ ui <- fluidPage(
 # Define server logic required to draw a histogram
 server <- function(input, output) {
     
-    # #Display data table of PPP loans for selected
-    # output$zipTable <- renderTable({
-    #     
-    # })
+    #Display data table of PPP loans for selected
+    output$zipTable <- DT::renderDataTable({
+        DT::datatable(data = ppp,
+                      rownames = FALSE)
+
+    })
 }
 
 # Run the application 
