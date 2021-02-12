@@ -7,41 +7,42 @@
 #    http://shiny.rstudio.com/
 #
 
+#Loading relevant libraries & data 
 library(shiny)
+library(DT)
+library(tidyverse)
+load("pittppp.csv")
 
-# Define UI for application that draws a histogram
 ui <- fluidPage(
-
+    
     # Application title
-    titlePanel("Old Faithful Geyser Data"),
-
-    # Sidebar with a slider input for number of bins 
+    titlePanel("Pittsburgh PPP Loan Data"),
+    
+    # Sidebar layout with a input and output definitions --------------
     sidebarLayout(
+        
+        # Inputs: Select variables to plot ------------------------------
         sidebarPanel(
-            sliderInput("bins",
-                        "Number of bins:",
-                        min = 1,
-                        max = 50,
-                        value = 30)
+            
+            #Selects Zip Code in Pittsburgh (to be used to filter the data)
+            selectInput(inputId = "zip_code",
+                        label = "Pittsburgh Zip Code",
+                        choices = "" )
         ),
-
-        # Show a plot of the generated distribution
+        
+        #Outputs
         mainPanel(
-           plotOutput("distPlot")
+            tableOutput("zipTable")
         )
     )
 )
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
-
-    output$distPlot <- renderPlot({
-        # generate bins based on input$bins from ui.R
-        x    <- faithful[, 2]
-        bins <- seq(min(x), max(x), length.out = input$bins + 1)
-
-        # draw the histogram with the specified number of bins
-        hist(x, breaks = bins, col = 'darkgray', border = 'white')
+    
+    #Display data table of PPP loans for selected
+    output$zipTable <- renderTable({
+        
     })
 }
 
