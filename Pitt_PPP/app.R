@@ -31,7 +31,7 @@ ui <- fluidPage(
             
             #Selects Zip Code in Pittsburgh (to be used to filter the data)
             selectInput(inputId = "zip_code",
-                        label = "Pittsburgh Zip Code",
+                        label = "Choose a zip code:",
                         choices = zipcodes$Zips)
         ),
         
@@ -42,12 +42,18 @@ ui <- fluidPage(
     )
 )
 
-# Define server logic required to draw a histogram
+# Define server logic 
 server <- function(input, output) {
     
-    #Display data table of PPP loans for selected
+    #Create a subset of the data filtering for the selected zip code ---------------------------
+    zip_subset <- reactive({
+        req(input$zip_code)
+        filter(ppp, Zip %in% input$zip_code)
+    })
+    
+    #Display data table of PPP loans for selected zip code -------------------------------------------
     output$zipTable <- DT::renderDataTable({
-        DT::datatable(data = ppp,
+        DT::datatable(data = zip_subset(),
                       rownames = FALSE)
 
     })
