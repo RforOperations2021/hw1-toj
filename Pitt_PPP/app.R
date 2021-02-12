@@ -11,9 +11,13 @@
 library(shiny)
 library(DT)
 library(tidyverse)
+library(shinythemes)
 load("pittppp2.csv")
 
 ui <- fluidPage(
+    
+    #theme
+    theme = shinytheme("superhero"),
     
     # Application title
     titlePanel("Pittsburgh PPP Loan Data"),
@@ -24,10 +28,10 @@ ui <- fluidPage(
         # Inputs: Select variables to plot ------------------------------
         sidebarPanel(
             
-            #Selects Zip Code in Pittsburgh (to be used to filter the data)
-            selectInput(inputId = "zip_code",
-                        label = "Pittsburgh Zip Code",
-                        choices = "Zip" )
+            # #Selects Zip Code in Pittsburgh (to be used to filter the data)
+            # selectInput(inputId = "zip_code",
+            #             label = "Pittsburgh Zip Code",
+            #             choices = )
         ),
         
         #Outputs
