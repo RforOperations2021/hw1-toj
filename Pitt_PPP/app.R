@@ -34,6 +34,11 @@ ui <- fluidPage(
                         label = "Choose a zip code:",
                         choices = zipcodes$Zips),
             
+            #Selects on what variable to stack the histogram
+            radioButtons(inputId = "hist.fill",
+                         label = "Pick the variable you would like to fill by:",
+                         choices = c("Gender")),
+            
             #creates download button for users
             downloadButton(outputId = "downloadData",
                            label = "Download"
