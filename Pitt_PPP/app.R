@@ -37,7 +37,7 @@ ui <- fluidPage(
             #Selects on what variable to stack the histogram
             radioButtons(inputId = "hist.fill",
                          label = "Pick the variable you would like to fill by:",
-                         choices = c("Gender")),
+                         choices = c("BusinessType", "RaceEthnicity", "Gender", "Veteran", "Lender")),
             
             #creates download button for users
             downloadButton(outputId = "downloadData",
@@ -73,10 +73,12 @@ server <- function(input, output) {
 
     #creating histogram of overall Pittsburgh PPP Loan data relative to selected zip code
     output$hist <- renderPlot({
-        ggplot(data = zip_subset(), aes(x = LoanAmount, fill = Gender)) +
+        ggplot(data = zip_subset(), aes(x = LoanAmount)) +
+            aes_string(fill = input$hist.fill) +
             geom_histogram() +
             xlab("Amount of PPP Loan") +
-            ylab("Number of Recipients")
+            ylab("Number of Recipients") +
+            ggtitle("What is the Distribution of PPP Loan Amounts?")
         
     })
     
