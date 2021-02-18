@@ -52,11 +52,11 @@ ui <- fluidPage(
             #Output: Tabset with Plots
             tabsetPanel(type = "tabs",
                         tabPanel("Histogram", plotOutput(outputId = "hist")),
-                        tabPanel("Diverging Bar Graph", plotOutput(outputId = "divbar"),
-                        tabPanel("Summary Statistics for Zip Code", plotOutput(outputId = "sumstat"))
-                                 )
+                        tabPanel("Diverging Bar Graph", plotOutput(outputId = "divbar")),
+                        tabPanel("Summary Statistics for Zip Code", tableOutput(outputId = "sumstat"))
+                                 ),
                 
-            ),
+         
             
             
             dataTableOutput(outputId = "zipTable")
@@ -102,9 +102,25 @@ server <- function(input, output) {
     # })
     
     
-    #creates a summary statistics table
+    #creates a summary statistics table for desired zipcode
     output$sumstat <- renderTable({
         
+        #makes the Lender column a factor variable
+        lend.fact <- factor(zip_subset()$Lender)
+        
+        #Finds the lender that appears most frequently for the subset of data
+        common.lend <- unique(lend.fact)[lend.fact %>% 
+                                             match(unique(lend.fact)) %>% 
+                                             tabulate() %>% 
+                                             which.max()]
+        
+
+         zip_sumstat <- zip_subset() %>% 
+             summarize("Total Number of Loans" = n(),
+                       "Minimum Loan Size" = min(LoanAmount),
+                       "Maximum Loan Size" = max(LoanAmount),
+                       "Average Loan Size" = mean(LoanAmount),
+                       "Most Common Lender" = common.lend) 
     })
     
     #Display data table of PPP loans for selected zip code -------------------------------------------
