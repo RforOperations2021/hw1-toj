@@ -6,4 +6,9 @@ The data used for the app was collected by the Small Business Administration and
 The main components of the app are:
 
 1. A data table that is sortable by the zip code within Pittsburgh that you select from a drop-down menu on the side panel.
-2. A histogram that shows the distribution of loan amounts, according to the zip code that you select from the drop-down menu. You can fill the histogram based on the available radio button inputs to see comparisons of the loan distribution across various attributes.
+
+2. A histogram that shows the distribution of loan amounts, according to the zip code that you select from the drop-down menu. You can fill the histogram based on the available radio button inputs to see comparisons of the loan distribution across various attributes
+
+3. A bar graph that shows the number of loan applications over time
+
+4. A summary statistics table that provides information on the number of PPP loans in your zip code of interest, the minimum, maximum, and average loan amounts, and the most common lender in the zip code
