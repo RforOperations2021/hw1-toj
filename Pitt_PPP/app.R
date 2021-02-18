@@ -32,11 +32,17 @@ ui <- fluidPage(
             #Selects Zip Code in Pittsburgh (to be used to filter the data)
             selectInput(inputId = "zip_code",
                         label = "Choose a zip code:",
-                        choices = zipcodes$Zips)
+                        choices = zipcodes$Zips),
+            
+            #creates download button for users
+            downloadButton(outputId = "downloadData",
+                           label = "Download"
+                           )
         ),
         
         #Outputs
         mainPanel(
+            
             dataTableOutput("zipTable")
         )
     )
