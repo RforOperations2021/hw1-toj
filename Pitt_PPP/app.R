@@ -40,10 +40,19 @@ ui <- fluidPage(
                            )
         ),
         
+    
         #Outputs
         mainPanel(
             
-            dataTableOutput("zipTable")
+            #Output: Tabset with Plots
+            tabsetPanel(type = "tabs",
+                        tabPanel("Histogram", plotOutput(outputId = "hist")),
+                        tabPanel("Scatterplot", plotOutput(outputId = "scatter"))
+                
+            ),
+            
+            
+            dataTableOutput(outputId = "zipTable")
         )
     )
 )
@@ -65,15 +74,15 @@ server <- function(input, output) {
 
     })
     
-    #Creates the downloadable csv of the user's requested dataset
-    output$downloadData <- downloadHandler(
-        filename = function() {
-            paste(input$zip_code, "_PPPLoans.csv", sep = "")
-        },
-        content = function(file) {
-            write.csv(output$zipTable, file, row.names = FALSE)
-        }
-    )
+    # #Creates the downloadable csv of the user's requested dataset
+    # output$downloadData <- downloadHandler(
+    #     filename =  function() {"Hello_world.csv"},
+    #     
+    #     content = function(file) {
+    #         write.csv(DT::datatable(data = zip_subset(),
+    #                                  rownames = FALSE), file, row.names = FALSE)
+    #     }
+    # )
 }
 
 # Run the application 
