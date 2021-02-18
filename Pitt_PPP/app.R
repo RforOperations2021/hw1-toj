@@ -65,6 +65,7 @@ server <- function(input, output) {
         req(input$zip_code)
         filter(ppp, Zip %in% input$zip_code)
     })
+
     
     
     #Display data table of PPP loans for selected zip code -------------------------------------------
@@ -74,15 +75,16 @@ server <- function(input, output) {
 
     })
     
-    # #Creates the downloadable csv of the user's requested dataset
-    # output$downloadData <- downloadHandler(
-    #     filename =  function() {"Hello_world.csv"},
-    #     
-    #     content = function(file) {
-    #         write.csv(DT::datatable(data = zip_subset(),
-    #                                  rownames = FALSE), file, row.names = FALSE)
-    #     }
-    # )
+    #Creates the downloadable csv of the user's requested dataset
+    output$downloadData <- downloadHandler(
+        filename =  function() {
+            paste(input$zip_code, "_PPPLoans.csv", sep = "")
+        },
+
+        content = function(file) {
+            write.csv(zip_subset(), file, row.names = FALSE)
+        }
+    )
 }
 
 # Run the application 
