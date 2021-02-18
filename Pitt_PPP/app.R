@@ -34,6 +34,11 @@ ui <- fluidPage(
                         label = "Choose a zip code:",
                         choices = zipcodes$Zips),
             
+            #Creates a checkbox to allow the user to decide between an unfilled 
+            # or filled histogram 
+            checkboxInput(inputId = "fill_data",
+                               label = "Show filled histogram"),
+            
             #Selects on what variable to stack the histogram
             radioButtons(inputId = "hist.fill",
                          label = "Pick the variable you would like to fill by:",
@@ -75,12 +80,24 @@ server <- function(input, output) {
 
     #creating histogram of overall Pittsburgh PPP Loan data relative to selected zip code
     output$hist <- renderPlot({
+        
+        #If the user wants a filled histogram, create this plot
+        if(input$fill_data) {
         ggplot(data = zip_subset(), aes(x = LoanAmount)) +
             aes_string(fill = input$hist.fill) +
             geom_histogram() +
             xlab("Amount of PPP Loan") +
             ylab("Number of Recipients") +
             ggtitle("What is the Distribution of PPP Loan Amounts?")
+        }
+        #otherwise, the histogram is plain & unfilled
+        else {
+            ggplot(data = zip_subset(), aes(x = LoanAmount)) +
+                geom_histogram() +
+                xlab("Amount of PPP Loan") +
+                ylab("Number of Recipients") +
+                ggtitle("What is the Distribution of PPP Loan Amounts?")
+        }
         
     })
     
