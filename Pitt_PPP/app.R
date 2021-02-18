@@ -52,7 +52,9 @@ ui <- fluidPage(
             #Output: Tabset with Plots
             tabsetPanel(type = "tabs",
                         tabPanel("Histogram", plotOutput(outputId = "hist")),
-                        tabPanel("Scatterplot", plotOutput(outputId = "scatter"))
+                        tabPanel("Diverging Bar Graph", plotOutput(outputId = "divbar"),
+                        tabPanel("Summary Statistics for Zip Code", plotOutput(outputId = "sumstat"))
+                                 )
                 
             ),
             
@@ -82,6 +84,22 @@ server <- function(input, output) {
         
     })
     
+    # #creating a diverging bar plot
+    # ppp$loan.nums <- ppp %>% 
+    #     as.numeric(LoanAmount)
+    # avg_loan <- ppp %>% 
+    #     mean(loan.nums)
+    # ppp$normalloan <- ifelse(ppp$LoanAmount < avg_loan, "below", "above")
+    # 
+    # output$divbar <- renderPlot({
+    #     ggplot(ppp, aes(x= input$zip_code, y=normalloan)) +
+    #         geom_bar(stat = "identity") + #aes(fill=normalloan)) +
+    #         scale_fill_manual(name = "Loan Size",
+    #                           labels = c("Above Average", "Below Average"),
+    #                           values = c("above"="#00ba38", "below"="#f8766d")) #+
+    #         #coord_flip()
+    #     
+    # })
     
     
     #Display data table of PPP loans for selected zip code -------------------------------------------
