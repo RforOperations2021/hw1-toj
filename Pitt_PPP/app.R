@@ -102,6 +102,11 @@ server <- function(input, output) {
     # })
     
     
+    #creates a summary statistics table
+    output$sumstat <- renderTable({
+        
+    })
+    
     #Display data table of PPP loans for selected zip code -------------------------------------------
     output$zipTable <- DT::renderDataTable({
         DT::datatable(data = zip_subset(),
