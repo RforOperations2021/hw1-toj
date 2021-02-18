@@ -66,6 +66,15 @@ server <- function(input, output) {
         filter(ppp, Zip %in% input$zip_code)
     })
 
+    #creating histogram of overall Pittsburgh PPP Loan data relative to selected zip code
+    output$hist <- renderPlot({
+        ggplot(data = zip_subset(), aes(x = LoanAmount, fill = Gender)) +
+            geom_histogram() +
+            xlab("Amount of PPP Loan") +
+            ylab("Number of Recipients")
+        
+    })
+    
     
     
     #Display data table of PPP loans for selected zip code -------------------------------------------
