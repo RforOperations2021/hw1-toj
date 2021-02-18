@@ -39,11 +39,14 @@ ui <- fluidPage(
             checkboxInput(inputId = "fill_data",
                                label = "Show filled histogram"),
             
-            #Selects on what variable to stack the histogram
-            radioButtons(inputId = "hist.fill",
-                         label = "Pick the variable you would like to fill by:",
-                         choices = c("BusinessType", "RaceEthnicity", "Gender", "Veteran", "Lender")),
-            
+           
+             #Selects on what variable to stack the histogram
+             radioButtons(inputId = "hist.fill",
+                          label = "Pick the variable you would like to fill by:",
+                          choices = c("BusinessType", "RaceEthnicity", "Gender", "Veteran", "Lender")
+                          ),
+         
+           
             #creates download button for users
             downloadButton(outputId = "downloadData",
                            label = "Download"
@@ -60,9 +63,11 @@ ui <- fluidPage(
                         tabPanel("Diverging Bar Graph", plotOutput(outputId = "divbar")),
                         tabPanel("Summary Statistics for Zip Code", tableOutput(outputId = "sumstat"))
                                  ),
-                
-         
             
+            #creating some space between the tab panel outputs and the data table
+            br(), br(), br(),
+
+
             
             dataTableOutput(outputId = "zipTable")
         )
