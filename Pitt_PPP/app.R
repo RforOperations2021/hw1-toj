@@ -60,7 +60,7 @@ ui <- fluidPage(
             #Output: Tabset with Plots
             tabsetPanel(type = "tabs",
                         tabPanel("Histogram", plotOutput(outputId = "hist")),
-                        tabPanel("Diverging Bar Graph", plotOutput(outputId = "divbar")),
+                        tabPanel("Bar Graph of PPP Loan Approvals Over Time", plotOutput(outputId = "bar")),
                         tabPanel("Summary Statistics for Zip Code", tableOutput(outputId = "sumstat"))
                                  ),
             
@@ -106,22 +106,25 @@ server <- function(input, output) {
         
     })
     
-    # #creating a diverging bar plot
-    # ppp$loan.nums <- ppp %>% 
-    #     as.numeric(LoanAmount)
-    # avg_loan <- ppp %>% 
-    #     mean(loan.nums)
-    # ppp$normalloan <- ifelse(ppp$LoanAmount < avg_loan, "below", "above")
-    # 
-    # output$divbar <- renderPlot({
-    #     ggplot(ppp, aes(x= input$zip_code, y=normalloan)) +
-    #         geom_bar(stat = "identity") + #aes(fill=normalloan)) +
-    #         scale_fill_manual(name = "Loan Size",
-    #                           labels = c("Above Average", "Below Average"),
-    #                           values = c("above"="#00ba38", "below"="#f8766d")) #+
-    #         #coord_flip()
-    #     
-    # })
+    
+    
+   #creates a bar graph that plots how many loans were approved over time
+    output$bar <- renderPlot( {
+        
+        #calculates how many loans were approved per day
+        loans.per.day <- zip_subset() %>%
+            mutate(month = format(as.Date(DateApproved, "%m/%d/%Y"), "%m"), year = format(as.Date(DateApproved, "%m/%d/%Y"),"%Y")) %>%
+            group_by(month, year) %>%
+            summarize(num.loans = n())
+        
+        ggplot(loans.per.day, aes(x=month, y= num.loans, fill = month)) +
+            geom_bar(stat = "identity") +
+            xlab("Month in 2020") +
+            ylab("Number of Loans Approved") 
+        
+        
+    })
+    
     
     
     #creates a summary statistics table for desired zipcode
