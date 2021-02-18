@@ -21,7 +21,7 @@ ui <- fluidPage(
     theme = shinytheme("united"),
     
     # Application title
-    titlePanel("Pittsburgh PPP Loan Data"),
+    titlePanel("Pittsburgh Paycheck Protection Program Loan Data"),
     
     # Sidebar layout with a input and output definitions --------------
     sidebarLayout(
